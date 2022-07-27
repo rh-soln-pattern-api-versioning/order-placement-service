@@ -20,4 +20,3 @@ mp.messaging.connector.smallrye-kafka.sasl.jaas.config=org.apache.kafka.common.s
 
 
 Then run ./mvnw quarkus:dev to kickstart the app in dev mode. The payloads this /placeorder service receives will be sent to a Kafka topic called *globex.order*
-
