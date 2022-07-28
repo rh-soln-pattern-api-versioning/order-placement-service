@@ -37,8 +37,7 @@ public class OrderPlacementResource {
 
 
         return Uni.createFrom().item(() -> payload)
-                //.onItem().invoke(p -> validator.validate(p))
-                
+                .onItem().invoke(p -> validator.validate(p))
                 .onItem().invoke(p -> kafkaService.emit(p))
                 .onItem().transform(p -> Response.status(200).entity(message).type(MediaType.APPLICATION_JSON).build())
                 .onFailure().recoverWithItem(throwable -> {

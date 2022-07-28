@@ -1,87 +1,224 @@
 {
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "additionalProperties": false,
   "properties": {
-    "idSite": {
-      "type": "string"
-    },
-    "activity": {
+    "promotion": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "userId": {
-          "type": "string",
-          "minLength": 36,
-          "maxLength": 36,
-          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
-        },
-        "url": {
+        "amount": {
           "type": "string"
         },
-        "rand": {
-          "type": "string",
-          "minLength": 36,
-          "maxLength": 36,
-          "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
+        "title": {
+          "type": "string"
         },
-        "type": {
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "value_type": {
+          "type": "string"
+        },
+        "applicable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "billing_address": {
+      "type": "object",
+      "properties": {
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address1",
+        "city",
+        "country",
+        "first_name",
+        "last_name",
+        "phone",
+        "state",
+        "zip"
+      ]
+    },
+    "shipping_address": {
+      "type": "object",
+      "properties": {
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address1",
+        "city",
+        "country",
+        "first_name",
+        "last_name",
+        "phone",
+        "state",
+        "zip"
+      ]
+    },
+    "line_items": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "price": {
+              "type": "number"
+            },
+            "product_id": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "sku": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "price",
+            "product_id",
+            "quantity",
+            "sku"
+          ]
+        }
+      ]
+    },
+    "user_info": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "username": {
           "type": "string"
         }
       },
       "required": [
         "userId",
-        "url",
-        "rand",
-        "type"
+        "email",
+        "username"
       ]
     },
-    "userInfo": {
+    "currency": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "visitsCount": {
-          "type": "integer"
-        },
-        "prevVisitTs": {
-          "type": "integer"
-        },
-        "firstVisitTs": {
-          "type": "integer"
-        },
-        "campaign": {
+        "currency": {
           "type": "string"
-        },
-        "localTime": {
-          "type": "string"
-        },
-        "newVisit": {
-          "type": "integer"
         }
       },
       "required": [
-        "localTime"
+        "currency"
       ]
     },
-    "actionInfo": {
+    "payment": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
-        "productId": {
+        "mode": {
           "type": "string"
         },
-        "search": {
+        "credit_card_number": {
           "type": "string"
         },
-        "searchCat": {
+        "card_expiry_date": {
+          "type": "object",
+          "properties": {
+            "year": {
+              "type": "integer"
+            },
+            "month": {
+              "type": "integer"
+            },
+            "day": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "year",
+            "month",
+            "day"
+          ]
+        },
+        "card_cvv": {
+          "type": "string"
+        },
+        "name_on_card": {
           "type": "string"
         }
       },
-      "required": []
+      "required": [
+        "credit_card_number",
+        "card_expiry_date",
+        "card_cvv",
+        "name_on_card"
+      ]
     }
   },
   "required": [
-    "idSite",
-    "activity",
-    "userInfo"
+    "billing_address",
+    "shipping_address",
+    "line_items",
+    "user_info",
+    "currency",
+    "payment"
   ]
 }
