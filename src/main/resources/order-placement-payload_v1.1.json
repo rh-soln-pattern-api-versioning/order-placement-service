@@ -1,0 +1,227 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "promotion": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "value_type": {
+          "type": "string"
+        },
+        "applicable": {
+          "type": "boolean"
+        }
+      }
+    },
+    "delivery_instructions" : {
+      "type": "string"
+    },
+    "billing_address": {
+      "type": "object",
+      "properties": {
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address1",
+        "city",
+        "country",
+        "first_name",
+        "last_name",
+        "phone",
+        "state",
+        "zip"
+      ]
+    },
+    "shipping_address": {
+      "type": "object",
+      "properties": {
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "zip": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "address1",
+        "city",
+        "country",
+        "first_name",
+        "last_name",
+        "phone",
+        "state",
+        "zip"
+      ]
+    },
+    "line_items": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "price": {
+              "type": "number"
+            },
+            "product_id": {
+              "type": "string"
+            },
+            "quantity": {
+              "type": "integer"
+            },
+            "sku": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "price",
+            "product_id",
+            "quantity",
+            "sku"
+          ]
+        }
+      ]
+    },
+    "user_info": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId",
+        "email",
+        "username"
+      ]
+    },
+    "currency": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "currency"
+      ]
+    },
+    "payment": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "credit_card_number": {
+          "type": "string"
+        },
+        "card_expiry_date": {
+          "type": "object",
+          "properties": {
+            "year": {
+              "type": "integer"
+            },
+            "month": {
+              "type": "integer"
+            },
+            "day": {
+              "type": "integer"
+            }
+          },
+          "required": [
+            "year",
+            "month",
+            "day"
+          ]
+        },
+        "card_cvv": {
+          "type": "string"
+        },
+        "name_on_card": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "credit_card_number",
+        "card_expiry_date",
+        "card_cvv",
+        "name_on_card"
+      ]
+    }
+  },
+  "required": [
+    "billing_address",
+    "shipping_address",
+    "line_items",
+    "user_info",
+    "currency",
+    "payment"
+  ]
+}
