@@ -14,6 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import org.apache.commons.validator.ValidatorException;
+import org.everit.json.schema.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,10 +38,23 @@ public class OrderPlacementResource {
         String order_id = String.format("%06d", new Random().nextInt(999999));
         
         String message = "{\"status\": \"CONFIRMED\", \"order_id\": \""+ order_id + "\"}";
-        JsonValidationResult jsonValidationResult = validator.validate(payload);
         
-        if (!jsonValidationResult.success()) {
-            String errorMessage = "{\"status\": \"ERROR\", \"message\": \""+ jsonValidationResult.getValidationErrors().toString() + "\"}";
+        boolean isJsonValid = true;
+        String validationErrors = null;
+        
+        try{ 
+            validator.validate(payload);
+        }  catch (ValidationException e) {
+            
+            // prints #/rectangle/a: -5.0 is not higher or equal to 0
+            System.out.println("ValidationException" + e.getMessage());
+            validationErrors = e.getAllMessages().toString();
+            isJsonValid = false;
+        }
+        
+        System.out.println("ValidationException: isJsonValid:: " + isJsonValid + " | validationErrors:: " + validationErrors);
+        if (!isJsonValid) {
+            String errorMessage = "{\"status\": \"ERROR\", \"message\": \""+ validationErrors + "\"}";
             return Uni.createFrom().item(() -> payload)
             .onItem().transform(p -> Response.status(400).entity(errorMessage).build());
                 

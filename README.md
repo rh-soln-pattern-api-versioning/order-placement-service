@@ -15,11 +15,7 @@ mp.messaging.connector.smallrye-kafka.sasl.jaas.config=org.apache.kafka.common.s
     username="globex" \
     password="globex";
 
-JSON_SCHEMA=order-placement-payload.json
-REGISTRY_URL=<service-reg-url>/apis/registry/v2
-REGISTRY_GROUPID=globex
-REGISTRY_ARTIFACTID=ProductCatalogJsonSchemaAPI
-REGISTRY_ARTIFACTID_VERSION=1
+export JSON_SCHEMA=order-placement-payload.json
 
 mp.messaging.outgoing.order-event.connector=smallrye-kafka
 mp.messaging.outgoing.order-event.key.serializer=org.apache.kafka.common.serialization.StringSerializer
