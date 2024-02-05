@@ -30,7 +30,7 @@ public class JsonSchemaValidator {
    
     
     public void validate(String json)  {
-        try (InputStream inputStream = getClass().getResourceAsStream("/org/globex/retail/"+schemaFile)) {
+        try (InputStream inputStream = getClass().getResourceAsStream("/org/globex/retail/json/"+schemaFile)) {
             JSONObject rawSchema = new JSONObject(new JSONTokener(inputStream));
             Schema schema = SchemaLoader.load(rawSchema);
             schema.validate(new JSONObject(json)); // throws a ValidationException if this object is invalid

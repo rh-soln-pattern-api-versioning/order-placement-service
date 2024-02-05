@@ -58,6 +58,7 @@
       },
       "required": [
         "address1",
+        "address2",
         "city",
         "country",
         "first_name",

@@ -14,6 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import org.apache.commons.validator.ValidatorException;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.everit.json.schema.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,13 +27,17 @@ public class OrderPlacementResource {
     @Inject
     JsonSchemaValidator validator;
 
-    @Inject
-    KafkaService kafkaService;
+    @RestClient
+    OrderService orderService;
+
+    public void emit(String payload) {
+        orderService.placeOrder(payload);
+    }
 
     @POST
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Uni<Response> placeOrder(String payload) {
+    public Response  placeOrder(String payload) {
     
         // a random  number sequence of 6 character  - fake order id
         String order_id = String.format("%06d", new Random().nextInt(999999));
@@ -55,17 +60,12 @@ public class OrderPlacementResource {
         System.out.println("ValidationException: isJsonValid:: " + isJsonValid + " | validationErrors:: " + validationErrors);
         if (!isJsonValid) {
             String errorMessage = "{\"status\": \"ERROR\", \"message\": \""+ validationErrors + "\"}";
-            return Uni.createFrom().item(() -> payload)
-            .onItem().transform(p -> Response.status(400).entity(errorMessage).build());
+            return Response.status(400).entity(errorMessage).type(MediaType.APPLICATION_JSON).build();
                 
         } else  {
-            return Uni.createFrom().item(() -> payload)
-                .onItem().invoke(p -> kafkaService.emit(p))
-                .onItem().transform(p -> Response.status(200).entity(message).type(MediaType.APPLICATION_JSON).build())
-                .onFailure().recoverWithItem(throwable -> {                    
-                        log.error("Exception when processing payload", throwable);
-                        return Response.status(500, "Processing error").build();                    
-                });}
-    }
+            orderService.placeOrder(payload);
+            return Response.status(200).entity(message).type(MediaType.APPLICATION_JSON).build();
+        }
 
+    }
 }

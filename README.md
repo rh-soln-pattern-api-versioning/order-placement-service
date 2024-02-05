@@ -39,5 +39,7 @@ Then run ./mvnw quarkus:dev to kickstart the app in dev mode. The payloads this 
 ## Push image to quay
 
 ./mvnw package
+
 docker build -f src/main/docker/Dockerfile.jvm -t  quay.io/rh_soln_pattern_api_versioning/order-placement:latest .
+
 docker push quay.io/rh_soln_pattern_api_versioning/order-placement:latest
