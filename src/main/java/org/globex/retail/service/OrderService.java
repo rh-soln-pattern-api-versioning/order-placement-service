@@ -1,4 +1,4 @@
-package org.globex.retail;
+package org.globex.retail.service;
 
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
