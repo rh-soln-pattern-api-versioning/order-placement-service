@@ -25,6 +25,9 @@
         }
       }
     },
+    "delivery_instructions" : {
+      "type": "string"
+    },
     "billing_address": {
       "type": "object",
       "properties": {
@@ -40,10 +43,7 @@
         "country": {
           "type": "string"
         },
-        "first_name": {
-          "type": "string"
-        },
-        "last_name": {
+        "name": {
           "type": "string"
         },
         "phone": {
@@ -60,8 +60,7 @@
         "address1",
         "city",
         "country",
-        "first_name",
-        "last_name",
+        "name",
         "phone",
         "state",
         "zip"
@@ -82,10 +81,7 @@
         "country": {
           "type": "string"
         },
-        "first_name": {
-          "type": "string"
-        },
-        "last_name": {
+        "name": {
           "type": "string"
         },
         "phone": {
@@ -102,8 +98,7 @@
         "address1",
         "city",
         "country",
-        "first_name",
-        "last_name",
+        "name",
         "phone",
         "state",
         "zip"
