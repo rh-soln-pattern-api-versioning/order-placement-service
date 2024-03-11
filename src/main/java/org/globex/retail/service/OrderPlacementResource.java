@@ -16,10 +16,6 @@ import org.everit.json.schema.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import org.bson.Document;
 
 @Path("/placeorder")
 public class OrderPlacementResource {
@@ -31,9 +27,6 @@ public class OrderPlacementResource {
 
     @RestClient
     OrderService orderService;
-
-    @Inject MongoClient mongoClient;
-
 
     public void emit(String payload) {
         orderService.placeOrder(payload);
@@ -69,17 +62,10 @@ public class OrderPlacementResource {
                 
         } else  {
             orderService.placeOrder(payload);
-            Document document = new Document()
-                .append("order_id", order_id)
-                .append("payload", payload);
-                getCollection().insertOne(document);
-
             return Response.status(200).entity(message).type(MediaType.APPLICATION_JSON).build();
         }
 
     }
 
-    private MongoCollection getCollection(){
-        return mongoClient.getDatabase("orders").getCollection("order");
-    }
+
 }
