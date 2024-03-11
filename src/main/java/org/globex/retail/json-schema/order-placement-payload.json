@@ -25,9 +25,6 @@
         }
       }
     },
-    "delivery_instructions" : {
-      "type": "string"
-    },
     "billing_address": {
       "type": "object",
       "properties": {
